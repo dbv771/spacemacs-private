@@ -501,7 +501,7 @@ dump."
   )
 
 (defun dotspacemacs/user-config ()
-  (setq spacemacs-buffer--warnings nil)
+  ;; (setq spacemacs-buffer--warnings nil)
   (find-file "d:/mynut/plan.org")
   ;; (find-file d:\\mynut\\plan\.org)
   ;; (find-file d:\mynut\plan.org)
