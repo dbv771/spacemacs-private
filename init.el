@@ -98,7 +98,7 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(sicp)
+   dotspacemacs-additional-packages '(sicp sdcv posframe)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -228,7 +228,7 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(solarized-light
+   dotspacemacs-themes '(;; solarized-light
                          solarized-dark)
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -244,7 +244,7 @@ It should only modify the values of Spacemacs settings."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 14
+                               :size 16
                                :weight normal
                                :width normal)
 
@@ -488,8 +488,8 @@ dump."
 
   ;; https://github.com/syl20bnr/spacemacs/issues/2705
   ;; (setq tramp-mode nil)
-  (setq tramp-ssh-controlmaster-options
-        "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
+  ;; (setq tramp-ssh-controlmaster-options
+        ;; "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
 
   ;; ss proxy. But it will cause anacond-mode failed.
   (setq socks-server '("Default server" "127.0.0.1" 1080 5))
@@ -501,10 +501,53 @@ dump."
   )
 
 (defun dotspacemacs/user-config ()
+  (setq spacemacs-buffer--warnings nil)
+  (find-file "d:/mynut/plan.org")
+  ;; (find-file d:\\mynut\\plan\.org)
+  ;; (find-file d:\mynut\plan.org)
+  ;; (find-file d:\\mynut\\plan.org)
+  ;; (find-file d://mynut//plan.org)
+  (prefer-coding-system 'gbk)
+  (setq file-name-coding-system 'chinese-gbk)
+  (setq spacemacs-buffer--warnings  nil) 
+  (setq default-process-coding-system '(utf-8 . utf-8)) 
   ;;解决org表格里面中英文对齐的问题
+  (require 'sdcv)
+  (setq sdcv-say-word-p t)              ;say word after translation
+
+  (setq sdcv-dictionary-data-dir "C:\\cygwin\\usr\\share\\stardict\\dic") ;setup directory of stardict dictionary
+  ;; (defcustom sdcv-dictionary-simple-list "C:\\cygwin\\usr\\share\\stardict\\dic"
+
+
+  (setq sdcv-dictionary-simple-list     ;setup dictionary list for simple search
+        '("懒虫简明英汉词典"
+          "懒虫简明汉英词典"
+          "KDic11万英汉词典"))
+
+  (setq sdcv-dictionary-complete-list ;setup dictionary list for complete search
+        '(
+          "懒虫简明英汉词典"
+          "英汉汉英专业词典"
+          "XDICT英汉辞典"
+          "stardict1.3英汉辞典"
+          "WordNet"
+          "XDICT汉英辞典"
+          "Jargon"
+          "懒虫简明汉英词典"
+          "FOLDOC"
+          "新世纪英汉科技大词典"
+          "KDic11万英汉词典"
+          "朗道汉英字典5.0"
+          "CDICT5英汉辞典"
+          "新世纪汉英科技大词典"
+          "牛津英汉双解美化版"
+          "21世纪双语科技词典"
+          "quick_eng-zh_CN"
+          ))
+  (server-start)
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and (spacemacs/system-is-mac) window-system)
-      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
+      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 16 16)))
 
   ;; Setting Chinese Font
   (when (and (spacemacs/system-is-mswindows) window-system)
@@ -514,7 +557,7 @@ dump."
     (dolist (charset '(kana han symbol cjk-misc bopomofo))
       (set-fontset-font (frame-parameter nil 'font)
                         charset
-                        (font-spec :family "Microsoft Yahei" :size 14))))
+                        (font-spec :family "Microsoft Yahei" :size 16))))
 
   (fset 'evil-visual-update-x-selection 'ignore)
 
