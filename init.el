@@ -501,14 +501,30 @@ dump."
   )
 
 (defun dotspacemacs/user-config ()
+  (setq general-holidays '((holiday-fixed 1 1 "元旦")
+                          (holiday-fixed 2 14 "情人节")
+                          (holiday-fixed 3 14 "白色情人节")
+                          (holiday-fixed 4 1 "愚人节")
+                          (holiday-fixed 5 1 "劳动节")
+                          (holiday-float 5 0 2 "母亲节")
+                          (holiday-fixed 6 1 "儿童节")
+                          (holiday-float 6 0 3 "父亲节")
+                          (holiday-fixed 7 1 "建党节")
+                          (holiday-fixed 8 1 "建军节")
+                          (holiday-fixed 9 10 "教师节")
+                          (holiday-fixed 10 1 "国庆节")
+                          (holiday-fixed 12 25 "圣诞节")))
   ;; (setq spacemacs-buffer--warnings nil)
+  ;; 自动打开网盘文件
   (find-file "d:/mynut/plan.org")
   ;; (find-file d:\\mynut\\plan\.org)
   ;; (find-file d:\mynut\plan.org)
   ;; (find-file d:\\mynut\\plan.org)
   ;; (find-file d://mynut//plan.org)
+  ;; 解决中文路径乱码问题
   (prefer-coding-system 'gbk)
   (setq file-name-coding-system 'chinese-gbk)
+  ;; 禁止出现警告
   (setq spacemacs-buffer--warnings  nil) 
   (setq default-process-coding-system '(utf-8 . utf-8)) 
   ;;解决org表格里面中英文对齐的问题
@@ -518,7 +534,7 @@ dump."
   (setq sdcv-dictionary-data-dir "C:\\cygwin\\usr\\share\\stardict\\dic") ;setup directory of stardict dictionary
   ;; (defcustom sdcv-dictionary-simple-list "C:\\cygwin\\usr\\share\\stardict\\dic"
 
-
+;; sdcv.el的配置，用来查词典，星际快译
   (setq sdcv-dictionary-simple-list     ;setup dictionary list for simple search
         '("懒虫简明英汉词典"
           "懒虫简明汉英词典"
@@ -544,6 +560,7 @@ dump."
           "21世纪双语科技词典"
           "quick_eng-zh_CN"
           ))
+  ;; 开启服务，用来使用emacsclientw
   (server-start)
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and (spacemacs/system-is-mac) window-system)
@@ -614,6 +631,7 @@ dump."
         (set-auto-mode)
       (fundamental-mode)))
   (spacemacs/set-leader-keys "otm" 'zilongshanren/toggle-major-mode)
+  ;; /////todo : 自定义space为leader键的快捷方式///////  
 
   (setq inhibit-compacting-font-caches t)
   (global-display-line-numbers-mode -1)
