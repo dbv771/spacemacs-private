@@ -501,19 +501,40 @@ dump."
   )
 
 (defun dotspacemacs/user-config ()
+
+  (defun archive-done-tasks ()
+    (interactive)
+    (save-excursion
+      (goto-char (point-min))
+      (while (re-search-forward
+              (concat "\\* " (regexp-opt org-done-keywords) " ") nil t)
+        (goto-char (line-beginning-position))
+        (org-archive-subtree))))
+  ;; 如果只是想对特定的 org 文件起作用，在对应的文件开头加上
+
+  ;; -*- mode: org                      ; after-save-hook: (archive-done-tasks) -*-
+  ;; 如果想对所有 org 文件起作用，那么
+
+  (defun enable-auto-archive ()
+    (add-hook 'after-save-hook 'archive-done-tasks))
+  (add-hook 'org-mode-hook 'enable-auto-archive)
+
+
+
+  
   (setq general-holidays '((holiday-fixed 1 1 "元旦")
-                          (holiday-fixed 2 14 "情人节")
-                          (holiday-fixed 3 14 "白色情人节")
-                          (holiday-fixed 4 1 "愚人节")
-                          (holiday-fixed 5 1 "劳动节")
-                          (holiday-float 5 0 2 "母亲节")
-                          (holiday-fixed 6 1 "儿童节")
-                          (holiday-float 6 0 3 "父亲节")
-                          (holiday-fixed 7 1 "建党节")
-                          (holiday-fixed 8 1 "建军节")
-                          (holiday-fixed 9 10 "教师节")
-                          (holiday-fixed 10 1 "国庆节")
-                          (holiday-fixed 12 25 "圣诞节")))
+                           (holiday-fixed 2 14 "情人节")
+                           (holiday-fixed 3 14 "白色情人节")
+                           (holiday-fixed 4 1 "愚人节")
+                           (holiday-fixed 5 1 "劳动节")
+                           (holiday-float 5 0 2 "母亲节")
+                           (holiday-fixed 6 1 "儿童节")
+                           (holiday-float 6 0 3 "父亲节")
+                           (holiday-fixed 7 1 "建党节")
+                           (holiday-fixed 8 1 "建军节")
+                           (holiday-fixed 9 10 "教师节")
+                           (holiday-fixed 10 1 "国庆节")
+                           (holiday-fixed 12 25 "圣诞节")))
   ;; (setq spacemacs-buffer--warnings nil)
   ;; 自动打开网盘文件
   (find-file "d:/mynut/plan.org")
@@ -534,7 +555,7 @@ dump."
   (setq sdcv-dictionary-data-dir "C:\\cygwin\\usr\\share\\stardict\\dic") ;setup directory of stardict dictionary
   ;; (defcustom sdcv-dictionary-simple-list "C:\\cygwin\\usr\\share\\stardict\\dic"
 
-;; sdcv.el的配置，用来查词典，星际快译
+  ;; sdcv.el的配置，用来查词典，星际快译
   (setq sdcv-dictionary-simple-list     ;setup dictionary list for simple search
         '("懒虫简明英汉词典"
           "懒虫简明汉英词典"
