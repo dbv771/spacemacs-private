@@ -98,7 +98,10 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(sicp sdcv posframe)
+   dotspacemacs-additional-packages '(sicp sdcv posframe) 
+   ;; dotspacemacs-additional-packages '((company-english-helper :location (recipe
+                                                                               ;; :fetcher github
+                                                                               ;; :repo "dbv771/company-english-helper2")))
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -501,6 +504,12 @@ dump."
   )
 
 (defun dotspacemacs/user-config ()
+  (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
+
+  ;; (setq-default dotspacemacs-configuration-layers
+              ;; '((auto-completion :variables
+                                 ;; auto-completion-enable-snippets-in-popup t)))
+
 
   (defun archive-done-tasks ()
     (interactive)
@@ -543,6 +552,7 @@ dump."
   ;; (find-file d:\\mynut\\plan.org)
   ;; (find-file d://mynut//plan.org)
   ;; 解决中文路径乱码问题
+  (evil-goto-line)
   (prefer-coding-system 'gbk)
   (setq file-name-coding-system 'chinese-gbk)
   ;; 禁止出现警告
