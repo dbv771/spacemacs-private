@@ -505,7 +505,7 @@ dump."
 
 (defun dotspacemacs/user-config ()
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
-
+;;todo let org mode auto wrap 
   ;; (setq-default dotspacemacs-configuration-layers
               ;; '((auto-completion :variables
                                  ;; auto-completion-enable-snippets-in-popup t)))
